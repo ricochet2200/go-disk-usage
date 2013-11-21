@@ -11,6 +11,8 @@ type DiskUsage struct {
 	availBytes int64
 }
 
+// Returns an object holding the disk usage of the volume
+// that volumePath belongs to
 func NewDiskUsage(volumePath string) *DiskUsage {
 
 	h := syscall.MustLoadDLL("kernel32.dll")

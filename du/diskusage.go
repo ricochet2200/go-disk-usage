@@ -11,17 +11,17 @@ type DiskUsage struct {
 	stat *syscall.Statfs_t
 }
 
+// Returns an object holding the disk usage of the volume
+// that volumePath belongs to
 func NewDiskUsage(volumePath string) *DiskUsage {
 
-	os.Cd(volumePath)
+	os.Chdir(volumePath)
 
 	var stat syscall.Statfs_t
-	wd, err := os.Getwd()
+	wd, _ := os.Getwd()
 	syscall.Statfs(wd, &stat)
 
 	return &DiskUsage{&stat}
-	// Available blocks * size per block = available space in bytes
-	fmt.Println(stat.Bavail * uint64(stat.Bsize))
 }
 
 // Total free bytes on file system
@@ -46,5 +46,5 @@ func (this *DiskUsage) Used() uint64 {
 
 // Percentage of use on the file system
 func (this *DiskUsage) Usage() float32 {
-	return this.Used() / this.Size()
+	return float32(this.Used()) / float32(this.Size())
 }
