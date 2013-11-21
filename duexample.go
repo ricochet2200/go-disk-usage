@@ -1,7 +1,7 @@
 package main
 
 import (
-	"./du"
+	"github.com/ricochet2200/go-disk-usage/du"
 	"fmt"
 )
 
