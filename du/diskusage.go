@@ -15,7 +15,9 @@ type DiskUsage struct {
 // that volumePath belongs to
 func NewDiskUsage(volumePath string) *DiskUsage {
 
+	curr, _ := os.Getwd()
 	os.Chdir(volumePath)
+	defer os.Chdir(curr)
 
 	var stat syscall.Statfs_t
 	wd, _ := os.Getwd()
