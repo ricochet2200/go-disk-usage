@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/ricochet2200/go-disk-usage/du"
 	"fmt"
+	"github.com/ricochet2200/go-disk-usage/du"
 )
 
 var KB = uint64(1024)
