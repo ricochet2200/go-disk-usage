@@ -13,5 +13,5 @@ func main() {
 	fmt.Println("Available:", usage.Available()/(KB*KB))
 	fmt.Println("Size:", usage.Size()/(KB*KB))
 	fmt.Println("Used:", usage.Used()/(KB*KB))
-	fmt.Println("Usage:", usage.Usage())
+	fmt.Println("Usage:", usage.Usage()*100, "%")
 }
