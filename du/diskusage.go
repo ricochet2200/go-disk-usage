@@ -11,18 +11,12 @@ type DiskUsage struct {
 	stat *syscall.Statfs_t
 }
 
-// Returns an object holding the disk usage of the volume
-// that volumePath belongs to
+// Returns an object holding the disk usage of volumePath
+// This function assumes volumePath is a valid path
 func NewDiskUsage(volumePath string) *DiskUsage {
 
-	curr, _ := os.Getwd()
-	os.Chdir(volumePath)
-	defer os.Chdir(curr)
-
 	var stat syscall.Statfs_t
-	wd, _ := os.Getwd()
-	syscall.Statfs(wd, &stat)
-
+	syscall.Statfs(volumePath, &stat)
 	return &DiskUsage{&stat}
 }
 
