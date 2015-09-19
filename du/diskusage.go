@@ -3,7 +3,6 @@
 package du
 
 import (
-	"os"
 	"syscall"
 )
 
