@@ -2,10 +2,7 @@
 
 package du
 
-import (
-	"os"
-	"syscall"
-)
+import "syscall"
 
 type DiskUsage struct {
 	stat *syscall.Statfs_t
