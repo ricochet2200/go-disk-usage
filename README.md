@@ -12,12 +12,12 @@ This works for Windows, MacOS, and Linux although there may some minor variabili
 ## Install
 
 ```bash
-go get -u tcw.im/go-disk-usage
+go get -u "github.com/ricochet2200/go-disk-usage/du"
 ```
 
 ## Usage
 
 ```go
-import "tcw.im/go-disk-usage/du"
+import "github.com/ricochet2200/go-disk-usage/du"
 usage := du.New("/path/to")
 ```
