@@ -1,5 +1,5 @@
-//go:build !windows && !openbsd
-// +build !windows,!openbsd
+//go:build !windows && openbsd
+// +build !windows,openbsd
 
 package du
 
@@ -21,17 +21,17 @@ func NewDiskUsage(volumePath string) *DiskUsage {
 
 // Free returns total free bytes on file system
 func (du *DiskUsage) Free() uint64 {
-	return du.stat.Bfree * uint64(du.stat.Bsize)
+	return du.stat.F_bfree * uint64(du.stat.F_bsize)
 }
 
 // Available return total available bytes on file system to an unprivileged user
 func (du *DiskUsage) Available() uint64 {
-	return du.stat.Bavail * uint64(du.stat.Bsize)
+	return uint64(du.stat.F_bavail) * uint64(du.stat.F_bsize)
 }
 
 // Size returns total size of the file system
 func (du *DiskUsage) Size() uint64 {
-	return uint64(du.stat.Blocks) * uint64(du.stat.Bsize)
+	return uint64(du.stat.F_blocks) * uint64(du.stat.F_bsize)
 }
 
 // Used returns total bytes used in file system
