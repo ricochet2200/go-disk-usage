@@ -25,7 +25,7 @@ func (du *DiskUsage) Free() uint64 {
 
 // Available return total available bytes on file system to an unprivileged user
 func (du *DiskUsage) Available() uint64 {
-	return du.stat.Bavail * uint64(du.stat.Bsize)
+	return uint64(du.stat.Bavail) * uint64(du.stat.Bsize)
 }
 
 // Size returns total size of the file system
