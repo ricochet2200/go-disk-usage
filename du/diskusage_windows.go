@@ -1,8 +1,9 @@
 package du
 
 import (
-	"syscall"
 	"unsafe"
+
+	"golang.org/x/sys/windows"
 )
 
 type DiskUsage struct {
@@ -14,14 +15,13 @@ type DiskUsage struct {
 // NewDiskUsages returns an object holding the disk usage of volumePath
 // or nil in case of error (invalid path, etc)
 func NewDiskUsage(volumePath string) *DiskUsage {
-
-	h := syscall.MustLoadDLL("kernel32.dll")
+	h := windows.MustLoadDLL("kernel32.dll")
 	c := h.MustFindProc("GetDiskFreeSpaceExW")
 
 	du := &DiskUsage{}
 
 	c.Call(
-		uintptr(unsafe.Pointer(syscall.StringToUTF16Ptr(volumePath))),
+		uintptr(unsafe.Pointer(windows.StringToUTF16Ptr(volumePath))),
 		uintptr(unsafe.Pointer(&du.freeBytes)),
 		uintptr(unsafe.Pointer(&du.totalBytes)),
 		uintptr(unsafe.Pointer(&du.availBytes)))

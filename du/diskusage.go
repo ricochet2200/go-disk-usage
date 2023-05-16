@@ -1,20 +1,25 @@
+//go:build !windows
 // +build !windows
 
 package du
 
-import "syscall"
+import (
+	"golang.org/x/sys/unix"
+)
 
 // DiskUsage contains usage data and provides user-friendly access methods
 type DiskUsage struct {
-	stat *syscall.Statfs_t
+	stat *unix.Statfs_t
 }
 
 // NewDiskUsages returns an object holding the disk usage of volumePath
 // or nil in case of error (invalid path, etc)
 func NewDiskUsage(volumePath string) *DiskUsage {
-
-	var stat syscall.Statfs_t
-	syscall.Statfs(volumePath, &stat)
+	stat := unix.Statfs_t{}
+	err := unix.Statfs(volumePath, &stat)
+	if err != nil {
+		return nil
+	}
 	return &DiskUsage{&stat}
 }
 
