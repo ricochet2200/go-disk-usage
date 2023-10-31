@@ -15,12 +15,19 @@ type DiskUsage struct {
 // NewDiskUsages returns an object holding the disk usage of volumePath
 // or nil in case of error (invalid path, etc)
 func NewDiskUsage(volumePath string) *DiskUsage {
+	du, _ := NewDiskUsageOrError(volumePath)
+	return du
+}
+
+// NewDiskUsagesOrError returns an object holding the disk usage of volumePath
+// or any error (invalid path, etc)
+func NewDiskUsageOrError(volumePath string) (*DiskUsage, error) {
 	stat := unix.Statfs_t{}
 	err := unix.Statfs(volumePath, &stat)
 	if err != nil {
-		return nil
+		return nil, err
 	}
-	return &DiskUsage{&stat}
+	return &DiskUsage{&stat}, nil
 }
 
 // Free returns total free bytes on file system
